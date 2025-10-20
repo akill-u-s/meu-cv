@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Portfólio — Meu Nome</title>
+<style>
+:root {
+  --bg: #fdfdfd;
+  --card: #ffffff;
+  --accent1: #3b82f6;
+  --accent2: #60a5fa;
+  --accent3: #93c5fd;
+  --glass: rgba(255,255,255,0.85);
+  --muted: #555;
+  --text: #111;
+  --tab-text: #1e40af;
+}
+body.dark {
+  --bg: #0f1724;
+  --card: #0b1220;
+  --accent1: #7c3aed;
+  --accent2: #06b6d4;
+  --accent3: #38bdf8;
+  --glass: rgba(255,255,255,0.04);
+  --muted: rgba(255,255,255,0.65);
+  --text: #e6eef8;
+  --tab-text: #e6eef8;
+}
+*{box-sizing:border-box}
+html,body{
+  height:100%;
+  margin:0;
+  font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  color:var(--text);
+  background:var(--bg);
+  transition:b 0.4s,color 0.4s;
+}
+.container{
+  max-width:1100px;
+  margin:36px auto;
+  padding:24px;
+}
+header{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:16px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.profile-pic{
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid var(--accent1);
+  cursor:pointer;transition:all 0.4s;
+}
+.profile-pic.enlarged{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%) scale(3);
+  z-index:200;
+  box-shadow:0 8px 40px rgba(0,0,0,0.6);
+  border-width:4px;
+}
+.logo{
+  width:56px;
+  height:56px;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--accent1),var(--accent2));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  color:white;
+  box-shadow:0 4px 15px rgba(59,130,246,0.4);
+}
+nav{
+  display:flex;
+  gap:8px;
+}
+.tab{
+  background:var(--glass);
+  padding:24px 28px;
+  border-radius:16px;
+  color:var(--tab-text);
+  cursor:pointer;
+  border:1px solid rgba(0,0,0,0.1);
+  transition:all .4s;
+  font-size:1.3rem;
+  flex:1;
+  text-align:center;
+  box-shadow:0 4px 12px rgba(59,130,246,0.2);
+}
+.tab small{
+  display:block;
+  margin-top:6px;
+  font-size:0.85rem;
+  color:var(--muted);
+}
+.tab:hover{
+  transform:scale(1.06);
+  box-shadow:0 8px 20px rgba(59,130,246,0.3);
+}
+.tab.active{
+  background:linear-gradient(90deg, var(--accent1), var(--accent2));
+  color:white;
+  box-shadow:0 12px 28px rgba(59,130,246,0.35);
+}
+main{
+  margin-top:30px;
+  transition:all 0.4s;
+}
+.card{
+  background:var(--card);
+  padding:32px;
+  border-radius:20px;
+  border:1px solid rgba(0,0,0,0.08);
+  transition:all 0.4s;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+h1{
+  margin: 0;
+  font-size:2rem;
+}
+p.lead{
+  color:var(--muted);
+  margin-top:14px;
+}
+.btn{
+  padding:14px 18px;
+  border-radius:14px;
+  background:linear-gradient(90deg,var(--accent2),var(--accent3));
+  color:white;
+  border:none;
+  cursor:pointer;
+  text-decoration:none;
+  text-align:center;
+  display:inline-block;
+  transition:all 0.3s;
+  box-shadow:0 4px 12px rgba(59,130,246,0.3);
+}
+.btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 8px 20px rgba(59,130,246,0.35);
+}
+#home{
+  text-align:center;
+  padding:100px 20px;
+}
+.back-btn{
+  margin-top:20px;
+  display:inline-block;
+}
+form{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+input,textarea,select{
+  padding:14px;
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,0.1);
+  background:transparent;
+  color:var(--text);
+  box-shadow:0 4px 12px rgba(59,130,246,0.1);
+}
+.overlay{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(180deg,rgba(2,6,23,0.6),rgba(2,6,23,0.8));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:60
+}
+.auth{
+  width:440px;
+  background:var(--card);
+  padding:30px;
+  border-radius:18px;
+  border:1px solid rgba(0,0,0,0.08);
+  box-shadow:0 8px 24px rgba(59,130,246,0.25);
+  background-image:url('https://images.unsplash.com/photo-1508780709619-79562169bc64?auto=format&fit=crop&w=800&q=60');
+  background-size:cover;
+  background-position:center;
+}
+.auth h2{
+  margin:0 0 14px 0;
+  color:white;
+}
+.muted{
+  color:var(--muted);
+  font-size:0.95rem;
+}
+.theme-toggle{
+  position:fixed;
+  top:20px;right:20px;
+  padding:12px 16px;
+  background:var(--accent2);
+  color:white;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  z-index:100;
+  transition:all 0.3s;
+  box-shadow:0 4px 12px rgba(59,130,246,0.3);
+}
+.theme-toggle:hover{
+  transform:scale(1.05);
+  box-shadow:0 8px 20px rgba(59,130,246,0.35);
+}
+@media (max-width:900px){.gallery-grid{grid-template-columns:repeat(2,1fr)}.auth{width:92%}}
+@media (max-width:520px){.gallery-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="themeToggle">Tema</button>
+<div class="container">
+<header>
+<div class="brand">
+<img src="1.jpeg" alt="Foto de Perfil" class="profile-pic" id="profilePic">
+<div>
+<div style="font-weight:600;color:var(--text)">Akill U. Sancarbai</div>
+<div style="font-size:0.9rem;color:var(--muted)">Portfólio &amp; Trabalhos</div>
+</div>
+</div>
+</header>
+<main>
+<section id="home" class="card" style="display:none">
+<h1>Bem-vindo ao Meu Portfólio</h1>
+<p class="lead">Escolha uma das Abas abaixo para acessar o conteúdo.</p>
+<div style="margin-top:40px;display:flex;gap:24px;flex-wrap:wrap;justify-content:center">
+<div class="tab" onclick="showSection('cv')">CV<small>Descubra minhas experiências profissionais, habilidades e projetos mais importantes. Tudo organizado de forma clara para você conhecer meu percurso com facilidade e diversão!</small></div>
+<div class="tab" onclick="showSection('gallery')">Galeria<small>Explore minhas fotos, vídeos e criações visuais. Um espaço interativo para mostrar momentos especiais e projetos criativos com cores e movimento!</small></div>
+<div class="tab" onclick="showSection('forms')">Formulários<small>Acesse formulários de diversos tipos: contato, feedback e inscrições. Tudo pronto para você interagir de forma simples, prática e rápida! </small></div>
+</div>
+</section>
+<section id="cv" class="card" style="display:none">
+<h1>CV</h1>
+<a href="#home" class="btn back-btn" onclick="showSection('home')">Voltar ao Início</a>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CV usando HTML & CSS</title>
+<link rel="stylesheet" href="CV.css">
+</head>
+<body>
+    <div class="container">
+        <div class="top">
+            <div class="imgBx">
+                <div class="box">
+                    <img src="10.jpg" alt="Foto de Perfil">
+                </div>
+            </div>
+            <div class="profileText">
+                <h3>Akill<br>Sancarbai<br><span>Programador Web</span></h3>
+            </div>
+        </div>
+        <div class="contentBox">
+            <div class="leftSide">
+                <h3>Contato</h3>
+                <ul>
+                    <li>
+                        <span class="icon"><ion-icon name="call-outline"></ion-icon></span>
+                        <span class="text">+258 84 679 4561</span>
+                    </li>
+                    <li>
+                        <span class="icon"><ion-icon name="call-outline"></ion-icon></span>
+                        <span class="text">+258 86 716 8738</span>
+                    </li>
+                    <li>
+                        <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
+                        <span class="text">akillussumane@gmail.com</span>
+                    </li>
+                    <li>
+                        <span class="icon"><ion-icon name="location-outline"></ion-icon></span>
+                        <span class="text">Choupal, Maputo, Moçambique</span>
+                    </li>
+                </ul>
+                <h3>Educação</h3>
+                <ul class="educação">
+                    <li>
+                        <h5>2021 - 2021</h5>
+                        <h4>Conclusão da 10ª Classe</h4>
+                        <h6>Escola da Comunidade Maometana</h6>
+                    </li>
+                    <li>
+                        <h5>2023 - 2023</h5>
+                        <h4>Conclusão do CV3 em Eletricidade Industrial</h4>
+                        <h6>Instituto de Transportes e Comunicações</h6>
+                    </li>
+                    <li>
+                        <h5>2024 - 2024</h5>
+                        <h4>Conclusão do CV4 em Suporte Informático</h4>
+                        <h6>Instituto de Transportes e Comunicações</h6>
+                    </li>
+                    <li>
+                        <h5>2025 - 2025</h5>
+                        <h4>Em curso o CV5 em Programação Web</h4>
+                        <h6>Instituto de Transportes e Comunicações</h6>
+                    </li>
+                </ul>
+                <h3>Línguas</h3>
+                <ul class="linguas">
+                    <li>
+                        <span class="text">Português</span>
+                        <span class="percent"><div style="width: 90%;"></div></span>
+                    </li>
+                    <li>
+                        <span class="text">Inglês</span>
+                        <span class="percent"><div style="width: 70%;"></div></span>
+                    </li>
+                </ul>
+                <h3>Interesses</h3>
+                <ul class="Interesse">
+                    <li><span class="icon"><ion-icon name="game-controller-outline"></ion-icon></span>Jogos</li>
+                    <li><span class="icon"><ion-icon name="trophy-outline"></ion-icon></span>Treino</li>
+                    <li><span class="icon"><ion-icon name="fast-food-outline"></ion-icon></span>Culinária</li>
+                    <li><span class="icon"><ion-icon name="book-outline"></ion-icon></span>Leitura</li>
+                </ul>
+            </div>
+
+            <div class="rightSide">
+                <div class="about">
+                    <h3>Perfil</h3>
+                    <p>Sou Akill Ussumane Sancarbai, tenho
+                     19 anos de idade, natural de Maputo, sou
+                     estudante do ensino médio técnico no ITC. <br><br> 
+                     Sou um técnico profissional, responsável,
+                     gosto de trabalhar, adapto-me facilmente ao
+                     setor e sou ágil na execução das tarefas.
+                     Gosto de trabalhar em ambientes serenos.</p>
+                </div>
+                <div class="about">
+                    <h3>Experiência</h3>
+                    <div class="box">
+                        <div class="year_company">
+                            <h5>2022 - 2023</h5>
+                            <h5>Policonstruções</h5>
+                        </div>
+                        <div class="text">
+                            <h4>Eletricidade Industrial</h4>
+                            <p>Tenho uma experiência básica em 
+                            eletricidade, incluindo instalações, ligações
+                            e conhecimento em alguns materiais.                      
+                        </p>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="year_company">
+                            <h5>2024 - 2024</h5>
+                            <h5>Master Digital</h5>
+                        </div>
+                        <div class="text">
+                            <h4>Gráfica</h4>
+                        <p>Ganhei experiência em
+                        aplicativos como Word e Excel, bem como no 
+                        manuseio de impressoras, fotocopiadoras
+                        e outros equipamentos. 
+                        </p>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="year_company">
+                            <h5>2024 - 2025</h5>
+                            <h5>Autoria Própria</h5>
+                        </div>
+                        <div class="text">
+                            <h4>Programador Web</h4>
+                            <p>Aprendi noções
+                            básicas de linguagens como
+                            Java, HTML e CSS, tanto online
+                            como na escola.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about skills">
+                    <h3>Competências Profissionais</h3>
+                    <div class="box">
+                        <h4>HTML</h4>
+                        <span class="percent"><div style="width: 75%;"></div></span>
+                    </div>
+                    <div class="box">
+                        <h4>CSS</h4>
+                        <span class="percent"><div style="width: 75%;"></div></span>
+                    </div>
+                    <div class="box">
+                        <h4>JavaScript</h4>
+                        <span class="percent"><div style="width: 50%;"></div></span>
+                    </div>
+                    <div class="box">
+                        <h4>PHP</h4>
+                        <span class="percent"><div style="width: 58%;"></div></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botão para salvar em PDF -->
+    <button id="savePdf">💾 Salvar PDF</button>
+
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <!-- Script para funções -->
+    <script>
+
+        // Salvar como PDF
+        document.getElementById("savePdf").addEventListener("click", () => {
+            window.print();
+        });
+    </script>
+</body>
+</html>
+</section>
+<section id="gallery" class="card" style="display:none">
+<h1>Galeria</h1>
+<a href="#home" class="btn back-btn" onclick="showSection('home')">Voltar ao Início</a>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Galeria Profissional</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --bg:#fdfdfd;
+  --text:#111;
+  --accent1:#3b82f6;
+  --accent2:#60a5fa;
+  --card:#ffffff;
+  --muted:#555;
+  --shadow:0 8px 20px rgba(59,130,246,0.2);
+}
+body{
+  margin:0; padding:0;
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:0.4s;
+}
+body.dark{
+  --bg:#0f1724;
+  --text:#e6eef8;
+  --card:#1e293b;
+  --accent1:#60a5fa;
+  --accent2:#93c5fd;
+  --muted:#aaa;
+  --shadow:0 8px 20px rgba(0,0,0,0.4);
+}
+h1{text-align:center;color:var(--accent1);margin-top:30px;}
+h2{color:var(--accent2);}
+.container{max-width:1300px;margin:20px auto;padding:20px;}
+
+/* Perfil lateral */
+.perfil{
+  display:flex;
+  align-items:flex-start;
+  gap:30px;
+  background:var(--card);
+  padding:20px;
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  margin-bottom:40px;
+  transition:0.3s;
+}
+.perfil img{
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid var(--accent1);
+  cursor:pointer;
+  transition:0.4s;
+}
+.perfil img.enlarged{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%) scale(2.5);
+  z-index:200;
+  box-shadow:0 12px 40px rgba(0,0,0,0.6);
+}
+.bio{flex:1;}
+.bio h2{margin-top:0;}
+.bio p{color:var(--muted);font-size:0.95em;line-height:1.4;}
+
+/* Abas tipo pasta */
+.abas{display:flex; gap:20px; justify-content:center; margin-bottom:30px; flex-wrap:wrap;}
+.aba{
+  background: rgba(255,255,255,0.85);
+  padding:16px 24px;
+  border-radius:14px;
+  cursor:pointer;
+  flex:1;
+  text-align:center;
+  font-weight:600;
+  transition:0.3s;
+  border:1px solid rgba(0,0,0,0.1);
+}
+.aba:hover{transform:scale(1.05); box-shadow:var(--shadow);}
+.aba.active{background:linear-gradient(90deg,var(--accent1),var(--accent2)); color:#fff;}
+
+/* Grid multimídia profissional */
+.pasta{display:none; flex-wrap:wrap; gap:20px; justify-content:center; transition:0.4s;}
+.pasta.active{display:flex;}
+.pasta figure{
+  background:var(--card);
+  padding:12px;
+  border-radius:14px;
+  width:220px;
+  height:280px;
+  box-shadow:var(--shadow);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  overflow:hidden;
+  text-align:center;
+  transition:0.3s;
+}
+.pasta figure:hover{
+  transform:translateY(-6px) scale(1.05);
+  box-shadow:0 12px 28px rgba(59,130,246,0.35);
+}
+.pasta img, .pasta iframe, .pasta video, .pasta audio{
+  width:100%;
+  max-height:140px;
+  border-radius:10px;
+  object-fit:cover;
+  margin-top:8px;
+}
+figcaption{
+  margin-top:6px;
+  font-size:0.9em;
+  color:var(--accent1);
+  font-weight:500;
+  text-align:center;
+}
+.btn{
+  display:inline-block;
+  margin-top:6px;
+  padding:6px 14px;
+  border-radius:8px;
+  background:var(--accent1);
+  color:#fff;
+  text-decoration:none;
+  font-weight:bold;
+  transition:0.3s;
+}
+.btn:hover{
+  background:var(--accent2);
+  transform:scale(1.05);
+}
+
+/* Dark Mode Button */
+#toggleMode{
+  position:fixed; top:20px; right:20px; padding:10px 18px; border:none; border-radius:10px; background:var(--accent1); color:#fff; cursor:pointer; z-index:100; font-weight:bold; transition:0.3s;
+}
+#toggleMode:hover{transform:scale(1.05);}
+
+/* Responsivo */
+@media(max-width:768px){
+  .perfil{flex-direction:column; align-items:center;}
+  .perfil img{margin-bottom:12px;}
+  .pasta figure{width:45%; height:240px;}
+}
+</style>
+</head>
+<body>
+
+<button id="toggleMode">🌙 Modo Escuro</button>
+
+<div class="container">
+<h1>Galeria Multimídia Profissional</h1>
+
+<!-- Perfil -->
+<div class="perfil">
+<img src="IMG-20251002-WA0080.jpg" alt="Foto de Perfil" id="perfilPic">
+<div class="bio">
+<h2>AKILL USSUMANE SANCARBAI</h2>
+<p>Sou desenvolvedor e criador de conteúdos multimídia. Aqui você encontra minhas fotos, músicas e vídeos organizados de forma profissional e animada.</p>
+</div>
+</div>
+
+<!-- Abas Pastas -->
+<div class="abas">
+<div class="aba active" data-target="musicas">🎵 Músicas</div>
+<div class="aba" data-target="fotos">📷 Fotos</div>
+<div class="aba" data-target="videos">🎬 Vídeos</div>
+</div>
+
+<!-- Conteúdo -->
+<div id="musicas" class="pasta active">
+<figure>
+  <audio controls>
+    <source src="dj (1).mpeg" type="audio/mpeg">
+  </audio>
+  <figcaption>Música 1</figcaption>
+  <a href="musica.mp3" download class="btn">⬇️ Baixar</a>
+</figure>
+<figure>
+  <audio controls>
+    <source src="dj (2).mpeg" type="audio/mpeg">
+  </audio>
+  <figcaption>Música 2</figcaption>
+  <a href="musica2.mp3" download class="btn">⬇️ Baixar</a>
+</figure>
+</div>
+
+<div id="fotos" class="pasta">
+<figure><img src="IMG-20251002-WA0070.jpg"><figcaption>Foto 1</figcaption></figure>
+<figure><img src="IMG-20251002-WA0076.jpg"><figcaption>Foto 2</figcaption></figure>
+<figure><img src="IMG-20251002-WA0074.jpg"><figcaption>Foto 3</figcaption></figure>
+<figure><img src="IMG-20251002-WA0075.jpg"><figcaption>Foto 4</figcaption></figure>
+<figure><img src="IMG-20251002-WA0077.jpg"><figcaption>Foto 5</figcaption></figure>
+<figure><img src="IMG-20251002-WA0079.jpg"><figcaption>Foto 6</figcaption></figure>
+<figure><img src="IMG-20251002-WA0066.jpg"><figcaption>Foto 7</figcaption></figure>
+<figure><img src="IMG-20251002-WA0067.jpg"><figcaption>Foto 8</figcaption></figure>
+</div>
+
+<div id="videos" class="pasta">
+<figure>
+  <iframe width="100%" height="140" src="https://www.youtube.com/embed/N3TcBP55iEQ" frameborder="0" allowfullscreen></iframe>
+  <figcaption>Vídeo 1 (YouTube)</figcaption>
+</figure>
+<figure>
+  <video controls>
+    <source src="VID-20251002-WA0017.mp4" type="video/mp4">
+  </video>
+  <figcaption>Vídeo 2 (Local)</figcaption>
+</figure>
+<figure>
+  <video controls>
+    <source src="VID-20251002-WA0016.mp4" type="video/mp4">
+  </video>
+  <figcaption>Vídeo 3 (Local)</figcaption>
+</figure>
+</div>
+
+</div>
+
+<script>
+const toggleBtn = document.getElementById("toggleMode");
+toggleBtn.addEventListener("click", ()=>{
+  document.body.classList.toggle("dark");
+  toggleBtn.textContent = document.body.classList.contains("dark") ? "☀️ Modo Claro" : "🌙 Modo Escuro";
+});
+
+const abas = document.querySelectorAll(".aba");
+const pastas = document.querySelectorAll(".pasta");
+abas.forEach(aba=>{
+  aba.addEventListener("click", ()=>{
+    abas.forEach(a=>a.classList.remove("active"));
+    aba.classList.add("active");
+    pastas.forEach(p=>p.classList.remove("active"));
+    document.getElementById(aba.dataset.target).classList.add("active");
+  });
+});
+
+const perfilPic = document.getElementById("perfilPic");
+perfilPic.addEventListener("click", ()=>{perfilPic.classList.toggle("enlarged");});
+</script>
+</body>
+</html>
+</section>
+<section id="forms" class="card" style="display:none">
+<h1>Formulários</h1>
+<a href="#home" class="btn back-btn" onclick="showSection('home')">Voltar ao Início</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularios</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>1. Tipos de Input</h1>
+    <form>
+        <label> Texto:</label>
+        <input type="text" placeholder="Nome"><br><br>
+        <label>Email:</label>
+        <input type="email" placeholder="email@gmail.com"><br><br>        
+        <label>Password:</label>
+        <input type="password" placeholder="Senha"><br><br>        
+        <label>Data:</label>
+        <input type="date"><br><br>        
+        <label>Arquivo</label>
+        <input type="file"><br>
+    </form>
+</body>
+</html>
+
+<hr>
+
+<h1>2. Nome e Email com required</h1>
+<form>
+    <input type="text" name="nome" placeholder="Nome completo" required><br><br>
+    <input type="email" name="email" placeholder="Email" required><br><br>
+    <button type="submit">Enviar</button>
+</form>
+
+<hr>
+
+<h1>3. Login</h1>
+<form>
+    <input type="text" placeholder="Usuario" required><br><br>
+    <button type="submit">Login</button><br>
+</form>
+
+<hr>
+
+<h1>4. Inscricao em Evento</h1>
+<form>
+    <input type="text" placeholder="Nome" required><br><br>
+    <input type="text" placeholder="Profissao" required><br><br>
+    <input type="date" placeholder="Data de Nascimento" required><br><br>
+    <input type="tel" placeholder="Contato" required><br><br>
+    <input type="time" placeholder="Hora de Cadastro" required><br><br>
+    <input type="text" placeholder="Nome" required><br><br>
+    <input type="text" placeholder="Residencia" required><br><br>
+    <input type="checkbox">Aceito os Termos e Licencas<br><br>
+    <textarea placeholder="Mensagem"></textarea><br><br>
+    <button type="submit">Enviar</button><br><br>
+    <button type="reset">Limpar</button><br><br>
+</form>
+
+<hr>
+
+<h1>5. Candidatura a Emprego</h1>
+<form>
+    <input type="text" placeholder="Nome" required><br><br>
+    <input type="email" placeholder="Email" required><br><br>
+    <input type="number" placeholder="Anos de Experiencia"><br><br>
+    <input type="text" placeholder="Formacao"><br><br>
+    <input type="tel" placeholder="Contato"><br><br>
+    <input type="time" placeholder="Hora de Cadastro"><br><br>
+    <input type="file"><br><br>
+    <button type="submit">Enviar  Candidatura</button>
+</form>
+
+<hr>
+
+<h1>6. Cadastro de Estudantes</h1>
+<form>
+    <input type="text" placeholder="Nome" required><br><br>
+    <select>
+        <option>Masculino</option>
+        <option>Feminino</option>
+        <option>Outro</option>
+    </select><br><br>
+    <input type="email" placeholder="Email"><br><br>
+    <input type="text" placeholder="Hobbies"><br><br>
+    <select>
+        <option>Gestao</option>
+        <option>Design</option>
+    </select><br><br>
+    <input type="email" placeholder="Email" required><br><br>
+    <input type="tel" placeholder="Telefone"><br><br>
+    <select>
+        <option>Workshop HTML</option>
+        <option>Workshop CSS</option>
+        <option>Workshop JS</option>
+    </select><br><br>
+    <input type="checkbox" required>Aceito os Termos e Licencas<br><br>
+    <button type="submit">Inscrever</button>
+</form>
+
+<hr>
+
+<h1>7. Cadastro de Medicamentos</h1>
+<form>
+    <input type="text" placeholder="Nome do Medicamento"><br><br>
+    <select>
+        <option>Analgesico</option>
+        <option>Antibiotico</option>
+        <option>Antitermico</option>
+    </select><br><br>
+    <input type="date" placeholder="Validade"><br><br>
+    <input type="date" placeholder="Validade"><br><br>
+    <input type="date" placeholder="Validade"><br><br>
+    <button type="submit">Cadastrar</button>
+    <button type="reset">Cancelar</button>
+</form>
+
+<hr>
+
+<h1>8. Cadastro com Validacao</h1>
+<form>
+    <input type="text" placeholder="Nome" required minlength="3" maxlength="50"><br><br>
+    <input type="email" placeholder="Email" required><br><br>
+    <input type="password" name="senha" placeholder="Senha" required pattern=".{6,}" title="Minimo 6 caracteres"><br><br>
+    <input type="password" name="confirma" placeholder="Confirmar Senha" required pattern=".{6,}"><br><br>
+    <button type="submit">Cadastrar</button>
+</form>
+
+<hr>
+
+<h1>9. Formulario de Pagamento</h1>
+<form>
+    <input type="text" name="nome_cartao" placeholder="Nome do Cartao"><br><br>
+    <input type="text" name="numero" placeholder="Numero do Cartao" pattern="16" required><br><br>
+    <input type="month" name="Validade" placeholder="Validade"><br><br>
+    <input type="text" name="cvv" placeholder="CVV" pattern="3" required><br><br>
+    <button type="submit">Pagar</button>
+</form>
+
+<hr>
+
+<h1>10. Formulario Multi-Etapas</h1>
+<form>
+    <fieldset>
+        <legend>1. Dados pessoais</legend>
+        <input type="email" placeholder="Email">
+        <input type="tel" placeholder="Telefone">
+        <button type="button">Voltar</button>
+        <button type="button">Proximo</button>
+    </fieldset>
+    <fieldset>
+        <legend>2. Contato</legend>
+        <input type="email" placeholder="Email">
+        <input type="tel" placeholder="Telefone">
+        <button type="button">Voltar</button>
+        <button type="button">Proximo</button>
+    </fieldset>
+
+    <fieldset>
+        <legend>3. Confirmacao</legend>
+        <p>Confirme os seus dados e clique em "Enviar"</p>
+        <button type="button">Voltar</button>
+        <button type="submit">Enviar</button>
+    </fieldset>
+</form>
+
+<hr>
+
+<h2>11. Formulario Responsivo de Cadastro</h2>
+<form>
+    <input type="text" placeholder="Nome Completo" required><br><br>
+    <input type="email" placeholder="Email" required><br><br>
+    <input type="text" placeholder="Profissao" required><br><br>
+    <input type="tel" placeholder="Contato" required><br><br>
+    <input type="date" required><br><br>
+    <button type="submit">Cadastrar</button>
+</form>
+
+<hr>
+
+<h2>12. Cadastro do Professor</h2>
+<form>
+    <input type="text" placeholder="Nome" required><br><br>
+    <input type="email" placeholder="Email" required><br><br>
+    <input type="text" placeholder="Disciplina" required><br><br>
+    <input type="file" accept="image/*" required><br><br>
+    <button type="submit">Cadastrar</button>
+</form>
+
+<hr>
+
+<h2>13. Pesquisa de Opiniao</h2>
+<form>
+    <label>Curso:
+        <select required>
+            <option>Administracao de Redes</option>
+            <option>Contabilidade</option>
+            <option>Construcao Civil</option>
+            <option>Programacao Web</option>
+        </select>
+    </label><br><br>
+    <label>Avaliacao:</label><br><br>
+    <label><input type="radio" name="avaliacao" value="1">&#9733;</label><br><br>
+    <label><input type="radio" name="avaliacao" value="2">&#9733;&#9733;</label><br><br>
+    <label><input type="radio" name="avaliacao" value="3">&#9733;&#9733;&#9733;</label><br><br>
+    <label><input type="radio" name="avaliacao" value="4">&#9733;&#9733;&#9733;&#9733;</label><br><br>
+    <label><input type="radio" name="avaliacao" value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</label><br><br>
+    <label>Gostos:</label>
+    <label><input type="checkbox" value="Aulas">Aulas</label>
+    <label><input type="checkbox" value="Professores">Professores</label>
+    <label><input type="checkbox" value="Ambiente">Ambiente</label><br><br>
+
+    <textarea placeholder="Comentarios..."></textarea><br><br>
+    <button type="submit">Enviar</button>
+</form>
+<br><br>
+</section>
+<section id="register" class="card">
+<h1>Cadastre-se para acessar ao portfólio</h1>
+<form id="registerForm">
+<input type="text" id="rName" placeholder="Seu nome" required>
+<input type="email" id="rEmail" placeholder="Email" required>
+<input type="password" id="rPass" placeholder="Senha (mín 6 caracteres)" required>
+<button class="btn" type="submit">Cadastrar</button>
+</form>
+<div id="registerMsg" class="small-muted" style="margin-top:8px"></div>
+</section>
+</main>
+</div>
+<script>
+function showSection(id){
+  document.querySelectorAll('main > section').forEach(s=>s.style.display='none');
+  document.getElementById(id).style.display='block';
+}
+function saveUser(obj){
+  const users=JSON.parse(localStorage.getItem('portfolio_users')||'[]');
+  users.push(obj);
+  localStorage.setItem('portfolio_users',JSON.stringify(users));
+}
+function findUserByEmail(email){
+  const users=JSON.parse(localStorage.getItem('portfolio_users')||'[]');
+  return users.find(u=>u.email===email);
+}
+const registerForm=document.getElementById('registerForm');
+const registerMsg=document.getElementById('registerMsg');
+registerForm.addEventListener('submit',e=>{
+  e.preventDefault();
+  const name=document.getElementById('rName').value.trim();
+  const email=document.getElementById('rEmail').value.trim().toLowerCase();
+  const pass=document.getElementById('rPass').value;
+  if(pass.length<6){registerMsg.textContent='Senha muito curta.';return}
+  if(findUserByEmail(email)){registerMsg.textContent='Email já cadastrado.';return}
+  saveUser({name,email,pass});
+  localStorage.setItem('portfolio_logged',JSON.stringify({name,email}));
+  registerMsg.textContent='Cadastro realizado! Redirecionando...';
+  setTimeout(()=>showSection('home'),700);
+});
+window.addEventListener('load',()=>{
+  const logged=localStorage.getItem('portfolio_logged');
+  if(logged){showSection('home');} else {showSection('register');}
+});
+const themeBtn=document.getElementById('themeToggle');
+themeBtn.addEventListener('click',()=>{document.body.classList.toggle('dark');});
+
+// Função de clique para aumentar a foto de perfil
+const profilePic=document.getElementById('profilePic');
+profilePic.addEventListener('click',()=>{
+  profilePic.classList.toggle('enlarged');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Atributos do Input</title>
+</head>
+<body>
+
+<h3>Exemplo dos principais atributos do &lt;input&gt;</h3>
+
+<form action="#" method="post" autocomplete="on">
+
+  <!-- type, name, placeholder, required -->
+  Nome: 
+  <input type="text" name="nome" placeholder="Digite o nome" required><br><br>
+
+  <!-- email e pattern -->
+  Email: 
+  <input type="email" name="email" placeholder="exemplo@gmail.com" pattern=".+@.+\..+" required><br><br>
+
+  <!-- value e readonly -->
+  País: 
+  <input type="text" name="pais" value="Moçambique" readonly><br><br>
+
+  <!-- disabled -->
+  Código (desativado): 
+  <input type="text" value="12345" disabled><br><br>
+
+  <!-- number com min, max e step -->                                                                                          
+  Idade: 
+  <input type="number" name="idade" min="18" max="60" step="1"><br><br>
+
+  <!-- autocomplete -->
+  Cidade: 
+  <input type="text" name="cidade" placeholder="Digite sua cidade" autocomplete="on"><br><br>
+
+  <input type="submit" value="Enviar">
+
+</form>
+
+</body>
+</html>
